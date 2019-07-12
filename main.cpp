@@ -1,3 +1,29 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2019 Ray Santana
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 //#include <Windows.h> //uncomment to run on Windows
 #include <FL/Fl_Window.H>
 #include <FL/Fl.H>
@@ -342,7 +368,7 @@ void newCustomCb1(Fl_Widget* widget, void* g) {
 	game->window->end();
 
 	// Resize window
-	game->window->resize(game->window->x_root(), game->window->y_root(), game->window->w(), 150 + 18 * h);
+	game->window->resize(game->window->x_root(), game->window->y_root(), game->window->w(), 140 + 18 * h);
 }
 
 void newCustomCb2(Fl_Widget* widget, void* g) {
@@ -353,17 +379,17 @@ void newCustomCb2(Fl_Widget* widget, void* g) {
 	stringstream c(input->value());
 	c >> w;
 
-	if (w <= 1) { // Lower bound for columns
+	if (w <= 7) { // Lower bound for columns
 		if (displayVariables) {
 			cout << "Number to low" << endl;
 		}
-		w = 2;
+		w = 8;
 	}
 	if (w > 98) { // Upper bound
 		if (displayVariables) {
 			cout << "Number to high" << endl;
 		}
-		w = 2;
+		w = 8;
 	}
 
 	if (displayFunctionCalls) {
@@ -382,8 +408,8 @@ void newCustomCb2(Fl_Widget* widget, void* g) {
 	game->window->end();
 
 	// Resize window/widgets
-	game->window->resize(game->window->x_root(), game->window->y_root(), 70 + 18 * w, game->window->h());
-	game->restart->position((game->window->w()) / 2 - 17, 60);
+	game->window->resize(game->window->x_root(), game->window->y_root(), 40 + 18 * w, game->window->h());
+	game->restart->position((game->window->w()) / 2 - 17, 74);
 	game->menuBar->resize(game->menuBar->x(), game->menuBar->y(), game->window->w(), 30);
 	game->timer->position(game->window->w() - 67, 40);
 }
@@ -441,10 +467,10 @@ void difficultyCb1(Fl_Widget* widget, void* g) {
 	game->window->end();
 
 	// Resize window/widgets
-	game->window->resize(game->window->x_root(), game->window->y_root(), 232, 312);
-	game->restart->position(99, 60);
-	game->menuBar->resize(game->menuBar->x(), game->menuBar->y(), 232, 30);
-	game->timer->position(165, 40);
+	game->window->resize(game->window->x_root(), game->window->y_root(), 202, 302);
+	game->restart->position(84, 74);
+	game->menuBar->resize(game->menuBar->x(), game->menuBar->y(), 202, 30);
+	game->timer->position(135, 40);
 }
 
 void difficultyCb2(Fl_Widget* widget, void* g) {
@@ -470,10 +496,10 @@ void difficultyCb2(Fl_Widget* widget, void* g) {
 	game->window->end();
 
 	// Resize window/widgets
-	game->window->resize(game->window->x_root(), game->window->y_root(), 358, 438);
-	game->restart->position(162, 60);
-	game->menuBar->resize(game->menuBar->x(), game->menuBar->y(), 358, 30);
-	game->timer->position(291, 40);
+	game->window->resize(game->window->x_root(), game->window->y_root(), 328, 428);
+	game->restart->position(147, 74);
+	game->menuBar->resize(game->menuBar->x(), game->menuBar->y(), 328, 30);
+	game->timer->position(261, 40);
 }
 
 void difficultyCb3(Fl_Widget* widget, void* g) {
@@ -498,10 +524,10 @@ void difficultyCb3(Fl_Widget* widget, void* g) {
 	game->window->end();
 
 	// Resize window/widgets
-	game->window->resize(game->window->x_root(), game->window->y_root(), 610, 438);
-	game->restart->position(288, 60);
-	game->menuBar->resize(game->menuBar->x(), game->menuBar->y(), 610, 30);
-	game->timer->position(543, 40);
+	game->window->resize(game->window->x_root(), game->window->y_root(), 580, 428);
+	game->restart->position(273, 74);
+	game->menuBar->resize(game->menuBar->x(), game->menuBar->y(), 580, 30);
+	game->timer->position(513, 40);
 }
 
 void difficultyCb4(Fl_Widget* widget, void* g) {
@@ -523,7 +549,7 @@ void difficultyCb4(Fl_Widget* widget, void* g) {
 	input = new Fl_Int_Input(70, 40, 60, 20, "Columns");
 	input->when(FL_WHEN_CHANGED);
 	input->callback(newCustomCb2, game);
-	input->tooltip("Max: 98 Columns, Min: 2 Columns"); // Any # larger than 98 makes window >1920p horizontally
+	input->tooltip("Max: 98 Columns, Min: 8 Columns"); // Any # larger than 98 makes window >1920p horizontally
 
 	input = new Fl_Int_Input(70, 70, 60, 20, "Mines");
 	input->when(FL_WHEN_CHANGED);
@@ -630,7 +656,7 @@ void infoWindow(Fl_Widget* widget, void* g) {
 
 void makeMenu(Board& g, int w) {
 	// Function to create menu for window
-	Fl_Menu_Bar* menuBar = new Fl_Menu_Bar(0, 0, 232, 30);
+	Fl_Menu_Bar* menuBar = new Fl_Menu_Bar(0, 0, 202, 30);
 	g.menuBar = menuBar;
 	menuBar->add("Game/New Game", 0, restartCallback, &g, 0);
 	menuBar->add("Game/Same Game", 0, sameGameCallback, &g, 0);
@@ -645,11 +671,11 @@ void makeMenu(Board& g, int w) {
 }
 
 int main() {
-	Fl_Window* window = new Fl_Window(232, 312, "Minesweeper");
-	Fl_Button* restart = new Fl_Button(99, 60, 34, 34);
+	Fl_Window* window = new Fl_Window(202, 302, "Minesweeper");
+	Fl_Button* restart = new Fl_Button(84, 74, 34, 34);
 	Fl_JPEG_Image restartImage("images/smiley.jpg");
         Fl_Box* flagCounter = new Fl_Box(22, 40, 45, 25, "");
-	Fl_Box* clock = new Fl_Box(165, 40, 45, 25, "0");
+	Fl_Box* clock = new Fl_Box(135, 40, 45, 25, "0");
 	Board game;
 
 	clock->box(FL_DOWN_BOX);
