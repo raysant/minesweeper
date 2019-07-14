@@ -6,12 +6,13 @@ Minesweeper clone written in C++, with a GUI based on the FLTK library. It was w
 In order to compile this program, you must have	`g++` and the `FLTK` library installed. Look through the [FLTK repository](https://github.com/fltk/fltk) for installation instructions for your platform.
 
 ### Installing FLTK on Arch Linux
-The `FLTK` library can be found in the community repository. 
+The `FLTK` library can be found in the community repository.
 
 ```bash
     $ pacman -S fltk
 ```
 ### Compiling and Running
+A display server should be running before using this program.
 
 ```bash
     $ g++ $(fltk-config --cxxflags) -lfltk -lfltk_images *.cpp -o minesweeper
